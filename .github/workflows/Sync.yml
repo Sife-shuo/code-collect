@@ -1,18 +1,32 @@
-name: Sync
+name: Deploy GitHub Pages
 
+# 触发条件：在 push 到 master 分支后
 on: [ push, delete, create ]
-
+permissions:
+  contents: write
+# 任务
 jobs:
-  build:
+  build-and-deploy:
+    # 服务器环境：最新版 Ubuntu
     runs-on: ubuntu-latest
     steps:
-      - name: Sync
-        uses: wearerequired/git-mirror-action@master
-        env:
-          # 注意在 Settings->Secrets 配置 GITEE_RSA_PRIVATE_KEY
-          SSH_PRIVATE_KEY: ${{ secrets.SIFE_RSA_PRIVATE_KEY }}
+      # 拉取代码
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
-          # 注意替换为你的 GitHub 源仓库地址
-          source-repo: git@github.com:Sife-shuo/code-collect.git
-          # 注意替换为你的 Gitee 目标仓库地址
-          destination-repo: git@github.com:Sife-shuo/test.git
+          persist-credentials: false
+
+      # 1、生成静态文件
+      #- name: Build
+      #  run: npm install && npm run build
+
+      # 2、部署到 GitHub Pages
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ssh-key: ${{ secrets.SIFE_RSA_PRIVATE_KEY }}
+          REPOSITORY_NAME: sife-shuo/sife-shuo.github.io
+          BRANCH: main
+          FOLDER: jslib
+          target-folder: libjs
+          #注意这里的 public 是仓库根目录下的 public，也就是 npm run build 生成静态资源的路径，比如有的人是 `docs/.vuepress/dist`
