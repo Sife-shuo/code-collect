@@ -24,7 +24,7 @@ jobs:
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
-          SSH: ${{ secrets.SIFE_RSA_PRIVATE_KEY }}
+          ACCESS_TOKEN: ${{ secrets.SIFE_ACCESS_TOKEN }}
           REPOSITORY_NAME: sife-shuo/sife-shuo.github.io
           BRANCH: main
           FOLDER: jslib
