@@ -15,4 +15,4 @@ jobs:
           # 注意替换为你的 GitHub 源仓库地址
           source-repo: git@github.com:Sife-shuo/code-collect.git
           # 注意替换为你的 Gitee 目标仓库地址
-          destination-repo: git@gitee.com:Sife-shuo/test.git
+          destination-repo: git@github.com:Sife-shuo/test.git
