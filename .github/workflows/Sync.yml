@@ -24,9 +24,9 @@ jobs:
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
-          ssh-key: ${{ secrets.SIFE_RSA_PRIVATE_KEY }}
+          SSH: ${{ secrets.SIFE_RSA_PRIVATE_KEY }}
           REPOSITORY_NAME: sife-shuo/sife-shuo.github.io
           BRANCH: main
           FOLDER: jslib
-          target-folder: libjs
+          TARGET_FOLDER: libjs
           #注意这里的 public 是仓库根目录下的 public，也就是 npm run build 生成静态资源的路径，比如有的人是 `docs/.vuepress/dist`
